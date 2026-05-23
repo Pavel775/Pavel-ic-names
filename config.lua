@@ -4,7 +4,7 @@ Config = {}
 Config.UnknownText = 'Desconocido'
 
 -- Distancia máxima para ver los nombres (en metros)
-Config.MaxDistance = 3.0
+Config.MaxDistance = 4.0
 
 -- Distancia para el comando de conocer (en metros)
 Config.MeetDistance = 1.5
