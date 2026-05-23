@@ -4,10 +4,10 @@ Config = {}
 Config.UnknownText = 'Desconocido'
 
 -- Distancia máxima para ver los nombres (en metros)
-Config.MaxDistance = 10.0
+Config.MaxDistance = 3.0
 
 -- Distancia para el comando de conocer (en metros)
-Config.MeetDistance = 3.0
+Config.MeetDistance = 1.5
 
 -- Tecla para aceptar/rechazar solicitudes (https://docs.fivem.net/docs/game-references/controls/)
 Config.AcceptKey = 246 -- Y
@@ -32,6 +32,7 @@ Config.PendingColor = {255, 255, 255, 255}
 Config.MeetCommand = 'conocer' -- Comando para enviar solicitud
 Config.AcceptCommand = 'aceptar' -- Comando alternativo para aceptar
 Config.DeclineCommand = 'rechazar' -- Comando alternativo para rechazar
+Config.ToggleIdsCommand = 'ids' -- Comando para ocultar/mostrar nombres e IDs
 Config.ResetCommand = 'resetconocidos' -- Comando admin para resetear conocidos
 
 -- Permisos admin para resetear

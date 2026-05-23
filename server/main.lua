@@ -23,8 +23,9 @@ function LoadKnownPlayers(citizenid)
     if KnownPlayers[citizenid] then return end
 
     local file = LoadResourceFile(GetCurrentResourceName(), 'data/' .. citizenid .. '.json')
-    if file then
-        KnownPlayers[citizenid] = json.decode(file) or {}
+    if file and file ~= '' then
+        local ok, data = pcall(json.decode, file)
+        KnownPlayers[citizenid] = ok and data or {}
     else
         KnownPlayers[citizenid] = {}
     end
@@ -255,5 +256,14 @@ AddEventHandler('onResourceStart', function(resourceName)
     local players = QBCore.Functions.GetQBPlayers()
     for _, Player in pairs(players) do
         LoadKnownPlayers(Player.PlayerData.citizenid)
+    end
+end)
+
+-- Guardar datos al detener el recurso
+AddEventHandler('onResourceStop', function(resourceName)
+    if GetCurrentResourceName() ~= resourceName then return end
+
+    for citizenid in pairs(KnownPlayers) do
+        SaveKnownPlayers(citizenid)
     end
 end)

@@ -6,6 +6,7 @@ local playerCitizenids = {} -- [serverId] = citizenid
 local hasPendingRequest = false
 local requestFromSource = nil
 local requestFromName = nil
+local showPlayerNames = true
 
 -- Función para dibujar texto 3D
 local function DrawText3D(x, y, z, text, r, g, b, a)
@@ -74,6 +75,10 @@ CreateThread(function()
                     if distance <= Config.MaxDistance then
                         sleep = 0
 
+                        if not showPlayerNames then
+                            goto continuePlayerLoop
+                        end
+
                         -- Obtener datos del jugador si no los tenemos
                         if not playerNames[serverId] then
                             TriggerServerEvent('ic-names:server:getPlayerData', serverId)
@@ -97,6 +102,7 @@ CreateThread(function()
 
                         DrawText3D(coords.x, coords.y, coords.z + Config.HeightOffset, displayName, r, g, b, a)
                     end
+                    ::continuePlayerLoop::
                 end
             end
         end
@@ -129,6 +135,13 @@ CreateThread(function()
         end
     end
 end)
+
+-- Comando para ocultar/mostrar nombres e IDs
+RegisterCommand(Config.ToggleIdsCommand, function()
+    showPlayerNames = not showPlayerNames
+    local status = showPlayerNames and 'activados' or 'desactivados'
+    QBCore.Functions.Notify('Nombres e IDs ' .. status, 'success')
+end, false)
 
 -- Recibir solicitud de conocer
 RegisterNetEvent('ic-names:client:meetRequest', function(fromSource, fromName)
