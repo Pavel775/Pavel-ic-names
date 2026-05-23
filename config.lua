@@ -14,7 +14,7 @@ Config.AcceptKey = 246 -- Y
 Config.DeclineKey = 249 -- N
 
 -- Tiempo en segundos para responder a una solicitud
-Config.RequestTimeout = 30
+Config.RequestTimeout = 60
 
 -- Offset de altura del texto sobre la cabeza
 Config.HeightOffset = 1.2

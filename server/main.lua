@@ -116,9 +116,8 @@ RegisterCommand(Config.MeetCommand, function(source, args)
     TriggerClientEvent('ic-names:client:meetRequest', targetId, src, srcName)
 end, false)
 
--- Aceptar solicitud
-RegisterNetEvent('ic-names:server:acceptRequest', function()
-    local src = source
+-- Función para aceptar solicitud
+local function AcceptRequest(src)
     local request = PendingRequests[src]
 
     if not request then
@@ -142,16 +141,15 @@ RegisterNetEvent('ic-names:server:acceptRequest', function()
     local srcName = GetICName(src)
 
     TriggerClientEvent('QBCore:Notify', src, 'Ahora conoces a ' .. request.fromName, 'success')
-    TriggerClientEvent('QBCore:Notify', request.fromSource, request.fromName .. ' ha aceptado tu solicitud', 'success')
+    TriggerClientEvent('QBCore:Notify', request.fromSource, srcName .. ' ha aceptado tu solicitud', 'success')
     TriggerClientEvent('ic-names:client:refreshNames', src)
     TriggerClientEvent('ic-names:client:refreshNames', request.fromSource)
 
     PendingRequests[src] = nil
-end)
+end
 
--- Rechazar solicitud
-RegisterNetEvent('ic-names:server:declineRequest', function()
-    local src = source
+-- Función para rechazar solicitud
+local function DeclineRequest(src)
     local request = PendingRequests[src]
 
     if not request then
@@ -163,16 +161,26 @@ RegisterNetEvent('ic-names:server:declineRequest', function()
     TriggerClientEvent('QBCore:Notify', request.fromSource, 'Tu solicitud fue rechazada', 'error')
 
     PendingRequests[src] = nil
+end
+
+-- Aceptar solicitud por evento
+RegisterNetEvent('ic-names:server:acceptRequest', function()
+    AcceptRequest(source)
+end)
+
+-- Rechazar solicitud por evento
+RegisterNetEvent('ic-names:server:declineRequest', function()
+    DeclineRequest(source)
 end)
 
 -- Comando para aceptar
-RegisterCommand(Config.AcceptCommand, function(source)
-    TriggerEvent('ic-names:server:acceptRequest')
+RegisterCommand(Config.AcceptCommand, function(source, args)
+    AcceptRequest(source)
 end, false)
 
 -- Comando para rechazar
-RegisterCommand(Config.DeclineCommand, function(source)
-    TriggerEvent('ic-names:server:declineRequest')
+RegisterCommand(Config.DeclineCommand, function(source, args)
+    DeclineRequest(source)
 end, false)
 
 -- Comando admin para resetear conocidos
