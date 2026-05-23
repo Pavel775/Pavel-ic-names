@@ -26,7 +26,7 @@ Config.TextScale = 0.4
 Config.TextColor = {255, 255, 255, 255}
 
 -- Color del texto para solicitudes pendientes
-Config.PendingColor = {255, 255, 0, 255}
+Config.PendingColor = {255, 255, 255, 255}
 
 -- Comandos
 Config.MeetCommand = 'conocer' -- Comando para enviar solicitud

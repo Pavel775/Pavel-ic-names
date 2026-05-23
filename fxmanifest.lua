@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-author 'Pavel775'
+author 'Pavel Scripts'
 description 'Sistema de nombres IC con reconocimiento de personajes'
 version '1.0.0'
 
