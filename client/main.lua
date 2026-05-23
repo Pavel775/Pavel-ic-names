@@ -87,6 +87,7 @@ CreateThread(function()
                             name = Config.UnknownText
                         end
 
+                        local displayName = '[' .. serverId .. '] ' .. name
                         local r, g, b, a
                         if hasPendingRequest and requestFromSource == serverId then
                             r, g, b, a = Config.PendingColor[1], Config.PendingColor[2], Config.PendingColor[3], Config.PendingColor[4]
@@ -94,7 +95,7 @@ CreateThread(function()
                             r, g, b, a = Config.TextColor[1], Config.TextColor[2], Config.TextColor[3], Config.TextColor[4]
                         end
 
-                        DrawText3D(coords.x, coords.y, coords.z + Config.HeightOffset, name, r, g, b, a)
+                        DrawText3D(coords.x, coords.y, coords.z + Config.HeightOffset, displayName, r, g, b, a)
                     end
                 end
             end
